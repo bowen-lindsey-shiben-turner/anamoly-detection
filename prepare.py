@@ -36,3 +36,19 @@ def prepare_logs(use_cache=True):
     # add 'to_csv'
     df.to_csv(filename, index=False)
     return df
+
+
+
+
+def get_q6_eda_df():
+    '''This function converts the column types in the CSV from object to the correct type. Using the CSV cached locally results in dates saved as 'object; instead of datetimes'''
+    
+    df = prepare.prepare_logs()
+    df.date_time = pd.to_datetime(df.date_time)
+      # convert dates to DTG
+    dates = ['start_date', 'end_date', 'created_at', 'updated_at']
+    for col in dates:
+        df[col] = pd.to_datetime(df[col])
+        # drop unnecessary columns
+    df = df.drop(columns=(['date', 'time']))
+    return df
