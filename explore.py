@@ -25,5 +25,10 @@ def explore_question3(df):
     df3 = df3[(df3['program_access'] == True)]
     df3 = df3[(df3['cohort'] != 'staff')] 
     #creates df of active students that are not staff
+    df3[['date_time', 'start_date', 'end_date', 'created_at', 'updated_at']] = df3[['date_time','start_date', 'end_date', 'created_at', 'updated_at']].apply(pd.to_datetime)
+    #converts selected columns to datetime format
+    df3 = df3.drop(columns=['cohort_id'])
+    #drops unnecessary column
+    df3['user_id'] = df3['user_id'].astype(object)
 
     return df3
