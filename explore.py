@@ -6,8 +6,63 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import os
 
+#--------------------------Question_1_fuctions--------------------------------------------
+def q1_full_stack_java(df):
+    '''creates a full stack java sub dataframe from the original dataframe'''
+    java = df[df.program_id == 'full_stack_java']
+    return java
 
 
+def q1_data_science_program(df):
+    '''creates a Data science sub dataframe from the original dataframe'''
+    data_science = df[df.program_id == 'data_science']
+    return data_science
+
+def q1_full_stack_php(df):
+    '''creates a full stack php sub dataframe from the original dataframe'''
+    php = df[df.program_id == 'full_stack_php']
+    return php
+
+def q1_front_end_programming(df):
+    '''creates a front end programming sub dataframe from the original dataframe'''
+    front_end = df[df.program_id == 'front_end_programming']
+    return front_end
+
+def q1_remove_columns(df):
+    columns = [".md","studentx", "asdf", "home", "index.html", ".ico", "job-board", "selectors", "job-portal",
+           "strings", "extra", "teams/13", "case-statements", "where", ".jpeg", ".png", ".xml", ".jpg",
+           ".json", "https", ".html", "grades", "notes", "prework", "appendix", ".map", "capstones",
+           "capstone", "wp-login", "'", "wp-admin"]
+
+    for c in columns:
+        df = df[df['path'].str.contains(c)==False]
+    return
+
+
+def q1_display_paths_java(df): 
+    java = pd.DataFrame(df.groupby('path').filter(lambda x : len(x)>10000))
+    return pd.DataFrame(java.path.value_counts())
+
+def q1_display_path_ds(df):
+    data = pd.DataFrame(df.groupby('path').filter(lambda x: len(x)>1500))
+    return pd.DataFrame(data.path.value_counts())
+
+def q1_display_path_php(df):
+    stack = pd.DataFrame(df.groupby('path').filter(lambda x: len(x)>250))
+    return pd.DataFrame(stack.path.value_counts())
+
+
+#--------------------------Question_7_fuctions--------------------------------------------
+
+
+def q1_display_least_accessed(df):
+    least = pd.DataFrame(df.groupby('path').filter(lambda x: len(x) > 75 != len(x) < 100))
+    return pd.DataFrame(least.path.value_counts())
+
+def q1_display_absolute_least(df):
+    least = pd.DataFrame(df.groupby('path').filter(lambda x: len(x) > 75 != len(x) < 100))
+    return
+    
 #--------------------------Question_3_fuctions---------------------------------------------------------------
 
 def explore_question3(df):
@@ -244,3 +299,67 @@ def q3_plot_hists(all_users, bottom_5_users, bottom_25_users, middle_users, top_
     plt.show()
 
 #-------------------------------------------------------------------------------------------------------------
+
+#--------------------------Question_7_fuctions--------------------------------------------
+
+
+def q1_display_least_accessed(df):
+    least = pd.DataFrame(df.groupby('path').filter(lambda x: len(x) > 75 != len(x) < 85))
+    return pd.DataFrame(least.path.value_counts())
+
+def q1_display_absolute_least(df):
+    least = pd.DataFrame(df.groupby('path').filter(lambda x: len(x) > 75 != len(x) < 100))
+    return
+
+def q1_get_least_accessed(df):
+    least_df = df[df['path'].str.contains("6-regression/2-acquire-and-prep")==True]
+    return least_df
+#--------------------------Question_6_functions---------------------------------------------------------------
+
+def get_coursework_topic_and_specific_resource(df):
+    """This function takes in the DataFrame produced by prepare.wrangle_logs()"""
+    paths = df.path.values
+    # returns array of paths
+    coursework_topic = []
+    specific_resource = []
+    further_info = []
+    for path in paths:
+        if path == '/':
+            coursework_topic.append('Homepage')
+            specific_resource.append('None')
+            further_info.append('None')
+        elif len(path.split('/')) > 2:
+            coursework_topic.append(path.split('/')[0])
+            specific_resource.append(path.split('/')[1])
+            further_info.append(path.split('/')[2])
+        elif len(path.split('/')) > 1:
+            coursework_topic.append(path.split('/')[0])
+            specific_resource.append(path.split('/')[1])
+            further_info.append('None')
+        else:
+             coursework_topic.append(path.split('/')[0])
+             specific_resource.append('None')
+             further_info.append('None')
+    df.coursework_topic = coursework_topic
+    df.specific_resource = specific_resource
+    df.further_info = further_info
+    return df
+
+
+def explore_q6_df():
+    """This function segments the dataframe to only represent page views from graduated students, i.e. outside of cohort start and end dates.
+    The function then adds three columns to the dataframe, ['coursework_topic', 'specific_resource', and 'further_info'] derived from the 'path' column.
+    Page views are then categorized by graduate program type, and by major area of interest, under the 'coursework topic' heading.
+    Arguments: none.
+    Returns: DataFrame.
+    """
+    # obtain the parent dataframe from the prepare file
+    df = prepare.wrangle_logs()
+    # only use the page views from gradudated students (i.e. requst dates outside of the cohort end date)
+    df = df[df.date_time > df.end_date]
+    # create df columns
+    df['coursework_topic'] = ''
+    df['specific_resource'] = ''
+    df['further_info'] = ''
+    df = get_coursework_topic_and_specific_resource(df)
+    return df
