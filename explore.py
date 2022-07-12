@@ -265,6 +265,7 @@ def q3_plot_hists(all_users, bottom_5_users, bottom_25_users, middle_users, top_
 
 #-------------------------------------------------------------------------------------------------------------
 
+<<<<<<< HEAD
 #--------------------------Question_7_fuctions--------------------------------------------
 
 
@@ -279,3 +280,54 @@ def q1_display_absolute_least(df):
 def q1_get_least_accessed(df):
     least_df = df[df['path'].str.contains("6-regression/2-acquire-and-prep")==True]
     return least_df
+=======
+#--------------------------Question_6_functions---------------------------------------------------------------
+
+def get_coursework_topic_and_specific_resource(df):
+    """This function takes in the DataFrame produced by prepare.wrangle_logs()"""
+    paths = df.path.values
+    # returns array of paths
+    coursework_topic = []
+    specific_resource = []
+    further_info = []
+    for path in paths:
+        if path == '/':
+            coursework_topic.append('Homepage')
+            specific_resource.append('None')
+            further_info.append('None')
+        elif len(path.split('/')) > 2:
+            coursework_topic.append(path.split('/')[0])
+            specific_resource.append(path.split('/')[1])
+            further_info.append(path.split('/')[2])
+        elif len(path.split('/')) > 1:
+            coursework_topic.append(path.split('/')[0])
+            specific_resource.append(path.split('/')[1])
+            further_info.append('None')
+        else:
+             coursework_topic.append(path.split('/')[0])
+             specific_resource.append('None')
+             further_info.append('None')
+    df.coursework_topic = coursework_topic
+    df.specific_resource = specific_resource
+    df.further_info = further_info
+    return df
+
+
+def explore_q6_df():
+    """This function segments the dataframe to only represent page views from graduated students, i.e. outside of cohort start and end dates.
+    The function then adds three columns to the dataframe, ['coursework_topic', 'specific_resource', and 'further_info'] derived from the 'path' column.
+    Page views are then categorized by graduate program type, and by major area of interest, under the 'coursework topic' heading.
+    Arguments: none.
+    Returns: DataFrame.
+    """
+    # obtain the parent dataframe from the prepare file
+    df = prepare.wrangle_logs()
+    # only use the page views from gradudated students (i.e. requst dates outside of the cohort end date)
+    df = df[df.date_time > df.end_date]
+    # create df columns
+    df['coursework_topic'] = ''
+    df['specific_resource'] = ''
+    df['further_info'] = ''
+    df = get_coursework_topic_and_specific_resource(df)
+    return df
+>>>>>>> 4bcf7082456b455249912874b84e639c0aa89ac8
