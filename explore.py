@@ -93,7 +93,7 @@ def explore_question3(df):
     df3['user_id'] = df3['user_id'].astype(object)
     df3['cohort_program'] = df3['program'] + '_' + df3['cohort']
     #dropping all cohorts that do no have a start date and end date within date_time
-    df3.drop(df3[df3.cohort.isin(['easley', 'kalypso', 'florence', 'neptune',  'sequoia', 'oberon', 'luna', 'marco'])].index, inplace=True)
+    df3.drop(df3[df3.cohort.isin(['easley', 'teddy', 'kalypso', 'florence', 'neptune',  'sequoia', 'oberon', 'luna', 'marco'])].index, inplace=True)
     df3['start_date'] = df3['start_date'].astype(str)
     df3['end_date'] = df3['end_date'].astype(str)
     df3['cohort_dates'] = df3['cohort_program'] + ': ' + df3['start_date'] + ' to ' + df3['end_date']
@@ -107,15 +107,28 @@ def explore_question3(df):
     return df3
 
 def q3_create_percentile_dfs(df3):
+    '''
+    This function creates 9 dataframes specific for question 3 exploration and prints 
+    the number of dataframe records.
+    
+    4 dataframes for the following:
+    Break the data down into quantiles (bottom 5% of access, bottom 25% of access, 
+    middle 25-75% of access, and top 25% of access) for comparisons.
+
+    5 dataframes do the following:
+    With the 4 sub-populations and original df3, groupby user_id's last access date and 
+    calculate the difference of the program end date to the user's last access date. 
+    This will tell us when the sub-population's stopped accessing the curriculum during their program.
+    '''
 
     df3['start_date'] = df3['start_date'].apply(pd.to_datetime)
     df3['end_date'] = df3['end_date'].apply(pd.to_datetime)
     counts = df3.user_id.value_counts()
     bottom_5 = df3[df3['user_id'].isin(counts[counts < 113].index)]
-    bottom_25 = df3[df3['user_id'].isin(counts[counts < 579].index)]
+    bottom_25 = df3[df3['user_id'].isin(counts[counts < 625].index)]
     middle = df3[df3['user_id'].isin(counts[counts < 1328].index)]
-    middle = df3[df3['user_id'].isin(counts[counts >= 579].index)]
-    top_25 = df3[df3['user_id'].isin(counts[counts >= 1328].index)]
+    middle = df3[df3['user_id'].isin(counts[counts >= 625].index)]
+    top_25 = df3[df3['user_id'].isin(counts[counts >= 1379].index)]
 
     bottom_5_users = bottom_5.groupby(bottom_5.user_id).max()
     bottom_5_users['last_day'] = bottom_5_users['end_date'] - bottom_5_users['date_time']
@@ -147,9 +160,28 @@ def q3_create_percentile_dfs(df3):
     all_users['last_day'] = all_users['last_day'].str[:-14]
     all_users['last_day'] = all_users['last_day'].astype(int)
 
+    print('')
+    print('All Access Records: {:,} records (between 1-4763 program access occurrences) '.format(len(df3)))
+    print('Bottom 5% Access Records: {:,} records (less than 113 program access occurrences)'.format(len(bottom_5)))
+    print('Bottom 25% Access Records: {:,} records (less than 625 program access occurrences)'.format(len(bottom_25)))
+    print('Middle 25-75% Access Records: {:,} records (between 625-1380 program access occurrences)'.format(len(middle)))
+    print('Top 25% Access Records: {:,} records (between 1380-4763 program access occurrences)'.format(len(top_25)))
+    print('')
+    print('------------------------------------------------')
+    print('')
+    print('All Access Records: {:,} records'.format(len(all_users)))
+    print('Bottom 5% Users: {:,} records'.format(len(bottom_5_users)))
+    print('Bottom 25% Users: {:,} records'.format(len(bottom_25_users)))
+    print('Middle 25-75% Users: {:,} records'.format(len(middle_users)))
+    print('Top 25% Users: {:,} records'.format(len(top_25_users)))
+    print('')
+    print('------------------------------------------------')
+
     return bottom_5, bottom_25, middle, top_25, all_users, middle_users, top_25_users, bottom_25_users, bottom_5_users
 
 def q3_plot_counts(bottom_5, bottom_25, middle, top_25):
+
+    '''This function visualizes the average access counts of the four sub-populations'''
 
     top_25['hour'] = top_25['hour'] + ':00'
     middle['hour'] = middle['hour'] + ':00'
@@ -186,6 +218,7 @@ def q3_plot_counts(bottom_5, bottom_25, middle, top_25):
     plt.show()
 
 def q3_plot_trends(top_25, middle, bottom_25, bottom_5):
+    '''This function visualizes the average access trends of the four sub-populations'''
 
     plt.figure(figsize=(10,6))
     order=(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'])
@@ -221,6 +254,8 @@ def q3_plot_trends(top_25, middle, bottom_25, bottom_5):
 
     
 def q3_plot_hists(all_users, bottom_5_users, bottom_25_users, middle_users, top_25_users):
+
+    '''This function visualizes the last day of curriculum access of users in sub-populations'''
     
     plt.figure(figsize=(7,6))
 
