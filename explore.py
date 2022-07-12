@@ -363,3 +363,18 @@ def explore_q6_df():
     df['further_info'] = ''
     df = get_coursework_topic_and_specific_resource(df)
     return df
+
+#--------------------------Question_2_function----------------------------------------------------------------
+
+def get_upper_bound_and_difference(series, multiplier = 1.5):
+    '''
+    Gets the upper bound and its difference from the max of a series based on the InterQuartile Range and a multiplier. Default multiplier is 1.5
+    '''
+    q1, q3 = series.quantile([.25, .75])
+    iqr = q3 - q1
+    
+    upper = q3 + (multiplier * iqr)
+    difference = series.max() - upper
+    
+    print(f'{series.name}\'s Upper bound is {round(upper, 2)}, and difference from max is {round(difference, 2)}')
+    return upper, difference
