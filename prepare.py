@@ -73,4 +73,40 @@ def wrangle_logs():
     return df
 
 
-#______________________________________________________________________________________________________________________________________________________
+#2.______________________________________________________________________________________________________________________________________________________
+
+def q2_df_prep(df):
+    '''
+    Creates a new dataframe for question 2,
+    "Is there a cohort that referred to a lesson significantly more than other cohorts seemed to gloss over?"
+    by adding a 'date_time' column with the concat of 'date' and 'time', dropping unnecessary columns of 'slack', 'id', 'deleted_at', 'Unnamed: 0', 'date', and 'time', dropping remaining rows with null values, remapping integer values under 'program_id' to word strings, converting columns with dates from object to timedate, making values in 'name' column lowercase, dropping 'staff' from 'names' column, and renaming 'name' and 'program_id' columns to 'cohort' and 'programs' respectively.
+    '''
+    
+    # convert date-time to DTG
+    df['date_time'] = df.date + " " + df.time
+    
+    # drop unnecessary columns
+    df = df.drop(columns=(['slack', 'id', 'deleted_at', 'Unnamed: 0', 'date', 'time']))
+    
+    # Removes all rows from columns with null values
+    df = df.dropna()
+    
+    # map programs to program ids
+    df.program_id = df.program_id.map({1.0:'full_stack_php', 
+    2.0:'full_stack_java', 3.0:'data_science', 4.0:'front_end_programming'})
+    
+    # convert dates to DTG
+    dates = ['start_date', 'end_date', 'created_at', 'updated_at', 'date_time']
+    for col in dates:
+        df[col] = pd.to_datetime(df[col])
+    
+    # change cohort names to lower case
+    df.name = df.name.str.lower()
+    
+    # Drops rows with value 'staff' under the 'name' column 
+    df = df[(df['name'] != 'staff')]
+    
+    # Renames specified columns
+    df2 = df.copy()
+    df2 = df2.rename(columns={'name': 'cohort', 'program_id': 'programs'})
+    return df2
