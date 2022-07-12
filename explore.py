@@ -397,3 +397,65 @@ def q1_display_absolute_least(df):
 def q1_get_least_accessed(df):
     least_df = df[df['path'].str.contains("6-regression/2-acquire-and-prep")==True]
     return least_df
+
+
+#--------------------------Question_2_functions----------------------------------------------------------------
+
+def get_upper_bound_and_difference(series, multiplier = 1.5):
+    '''
+    Gets the upper bound and its difference from the max of a series based on the InterQuartile Range and a multiplier. Default multiplier is 1.5
+    '''
+    q1, q3 = series.quantile([.25, .75])
+    iqr = q3 - q1
+    
+    upper = q3 + (multiplier * iqr)
+    difference = series.max() - upper
+    
+    print(f'{series.name}\'s Upper bound is {round(upper, 2)}, and difference from max is {round(difference, 2)}')
+    return upper, difference
+
+
+def q2_fsj_hist(df):
+    '''
+    Plots histogram of number of entries for all Data cohorts
+    '''
+    plt.figure(figsize=(12,8))
+    df['cohort'].hist()
+    plt.xticks(rotation = 90)
+    plt.title("Total 'Path' Entries Per Full Stack Java Cohort")
+    plt.show()
+
+    
+def q2_ds_hist(df):
+    '''
+    Plots histogram of number of entries for all Data cohorts
+    '''
+    plt.figure(figsize=(12,8))
+    df['cohort'].hist()
+    plt.xticks(rotation = 90)
+    plt.title("Total 'Path' Entries Per Data Science Cohort")
+    plt.show()
+
+    
+def q2_fsj_bar(df):
+    '''
+    Plots a barplot of number of entries for all Full Stack Java cohorts
+    '''
+    plt.figure(figsize=(20, 16))
+    df.plot.bar(stacked=True)
+    plt.legend(bbox_to_anchor=(1.02, 1), loc='upper left', borderaxespad=0)
+    plt.xticks(rotation = 90)
+    plt.title("Lessons Accessed Per Full Stack Java Cohort")
+    plt.show()
+
+
+def q2_ds_bar(df):
+    '''
+    Plots a barplot of number of entries for all Full Stack Java cohorts
+    '''
+    plt.figure(figsize=(20, 16))
+    df.plot.bar(stacked=True)
+    plt.legend(bbox_to_anchor=(1.02, 1), loc='upper left', borderaxespad=0)
+    plt.xticks(rotation = 90)
+    plt.title("Lessons Accessed Per Data Science Cohort")
+    plt.show()
