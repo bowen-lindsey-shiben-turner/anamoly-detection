@@ -37,6 +37,23 @@ I have some questions for you that I need to be answered before the board meetin
 
 ---
 
+## Data Dictionary
+|Column | Description | Dtype|
+|--------- | --------- | ----------- |
+|path| website path accessed| object|
+|user_id| user id| int64|
+|cohort_id| program numerical id| float64|
+|ip| access point of user| object|
+|name| actual name of cohort group| object|
+|start_date| date cohorts started programs| datetime|
+|end_date| date cohort ended/graduated| datetime|
+|created_at| date lessons were created| datetime|
+|updated_at|date lessons were updated|datetime|
+|program_id| ID of programs available|object|
+|date_time| date last accessed|datetime|
+
+---
+
 ## Project Summary
 
 ---

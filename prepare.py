@@ -4,6 +4,7 @@
 # prepare_logs(): SQL query to obtain data, removes uneeded columns, creates CSV
 # get_q6_eda(): converts DTG columns from strings to DTG types for EDA 
 # wrangle_logs(): combines the two prior functions
+# q2_df_prep(df): prepares a new dataframe for question 2
 
 #______________________________________________________________________________________________________________________________________________________
 
@@ -73,7 +74,7 @@ def wrangle_logs():
     return df
 
 
-#2.______________________________________________________________________________________________________________________________________________________
+#4.______________________________________________________________________________________________________________________________________________________
 
 def q2_df_prep(df):
     '''
