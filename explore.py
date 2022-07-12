@@ -356,7 +356,7 @@ def q6_pages_visual(df):
     fig, axs = plt.subplots(nrows=2, ncols=2, figsize=(16,12), constrained_layout=True)
     fig.suptitle("CodeUp Grads Most Accessed Pages after Graduation, by CodeUp Program", fontsize=20, y=1.05)
     for program, ax in zip(df.program_id.unique(), axs.ravel()):
-        df[df.program_id==(program)].coursework_topic.value_counts().head(15).plot.bar(ax=ax, rot=45)#.barh(y=df.program_id, width= df.date_time, rot=10)
+        df[df.program_id==(program)].coursework_topic.value_counts().head(15).plot.bar(ax=ax, rot=45)
         # chart formatting
         ax.set_title(program.upper(), fontsize=15)
         #ax.get_legend().remove()
@@ -373,9 +373,9 @@ def get_after_grad_acces_viz(df):
     grad_access_diff = (((df.date_time - df.end_date)/pd.Timedelta('1D'))/30).round(0)
     df['grad_access_diff'] = grad_access_diff
     df = df.groupby(['program_id', 'grad_access_diff']).date_time.count()
-    df = y1.reset_index()
+    df = df.reset_index()
     sns.set(rc = {'figure.figsize':(20,10)})
-    sns.lineplot(data=y1, x=y1.grad_access_diff, y=y1.date_time, hue=y1.program_id)
+    sns.lineplot(data=df, x=df.grad_access_diff, y=df.date_time, hue=df.program_id)
     plt.xlabel('Months after Graduation', fontsize=12)
     plt.ylabel('Views', fontsize=12)
     plt.title('Access to Curriculum over Time, from Graduation', fontsize=20)
