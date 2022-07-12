@@ -297,23 +297,6 @@ def q3_plot_hists(all_users, bottom_5_users, bottom_25_users, middle_users, top_
 
 
     plt.show()
-
-#-------------------------------------------------------------------------------------------------------------
-
-#--------------------------Question_7_fuctions--------------------------------------------
-
-
-def q1_display_least_accessed(df):
-    least = pd.DataFrame(df.groupby('path').filter(lambda x: len(x) > 75 != len(x) < 85))
-    return pd.DataFrame(least.path.value_counts())
-
-def q1_display_absolute_least(df):
-    least = pd.DataFrame(df.groupby('path').filter(lambda x: len(x) > 75 != len(x) < 100))
-    return
-
-def q1_get_least_accessed(df):
-    least_df = df[df['path'].str.contains("6-regression/2-acquire-and-prep")==True]
-    return least_df
 #--------------------------Question_6_functions---------------------------------------------------------------
 
 def get_coursework_topic_and_specific_resource(df):
@@ -364,17 +347,53 @@ def explore_q6_df():
     df = get_coursework_topic_and_specific_resource(df)
     return df
 
-#--------------------------Question_2_function----------------------------------------------------------------
 
-def get_upper_bound_and_difference(series, multiplier = 1.5):
-    '''
-    Gets the upper bound and its difference from the max of a series based on the InterQuartile Range and a multiplier. Default multiplier is 1.5
-    '''
-    q1, q3 = series.quantile([.25, .75])
-    iqr = q3 - q1
-    
-    upper = q3 + (multiplier * iqr)
-    difference = series.max() - upper
-    
-    print(f'{series.name}\'s Upper bound is {round(upper, 2)}, and difference from max is {round(difference, 2)}')
-    return upper, difference
+def q6_pages_visual(df):  
+    """Returns bar charts for most visited web pages after CodeUp graduation.
+    Argument: DataFrame (explore_q6_df())
+    Returns: 4 bar charts with overview""" 
+    #df = explore_q6_df()
+    fig, axs = plt.subplots(nrows=2, ncols=2, figsize=(16,12), constrained_layout=True)
+    fig.suptitle("CodeUp Grads Most Accessed Pages after Graduation, by CodeUp Program", fontsize=20, y=1.05)
+    for program, ax in zip(df.program_id.unique(), axs.ravel()):
+        df[df.program_id==(program)].coursework_topic.value_counts().head(15).plot.bar(ax=ax, rot=45)#.barh(y=df.program_id, width= df.date_time, rot=10)
+        # chart formatting
+        ax.set_title(program.upper(), fontsize=15)
+        #ax.get_legend().remove()
+        ax.set_xlabel("", fontsize=10)
+        ax.set_ylabel("Views", fontsize=10)
+    plt.show()
+
+
+def get_after_grad_acces_viz(df):
+    """This function takes in the q6_dataframe and returns the second set of visuals that shows curriculum access over time.
+    Arguments: dataframe (q6_dataframe)
+    Returns: Lineplot depicting curriculum access over time."""
+    df = df.set_index(df.date_time).sort_index()
+    grad_access_diff = (((df.date_time - df.end_date)/pd.Timedelta('1D'))/30).round(0)
+    df['grad_access_diff'] = grad_access_diff
+    df = df.groupby(['program_id', 'grad_access_diff']).date_time.count()
+    df = y1.reset_index()
+    sns.set(rc = {'figure.figsize':(20,10)})
+    sns.lineplot(data=y1, x=y1.grad_access_diff, y=y1.date_time, hue=y1.program_id)
+    plt.xlabel('Months after Graduation', fontsize=12)
+    plt.ylabel('Views', fontsize=12)
+    plt.title('Access to Curriculum over Time, from Graduation', fontsize=20)
+    plt.show()
+
+
+
+#--------------------------Question_7_functions--------------------------------------------
+
+
+def q1_display_least_accessed(df):
+    least = pd.DataFrame(df.groupby('path').filter(lambda x: len(x) > 75 != len(x) < 85))
+    return pd.DataFrame(least.path.value_counts())
+
+def q1_display_absolute_least(df):
+    least = pd.DataFrame(df.groupby('path').filter(lambda x: len(x) > 75 != len(x) < 100))
+    return
+
+def q1_get_least_accessed(df):
+    least_df = df[df['path'].str.contains("6-regression/2-acquire-and-prep")==True]
+    return least_df
