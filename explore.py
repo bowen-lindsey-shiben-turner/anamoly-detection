@@ -6,8 +6,63 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import os
 
+#--------------------------Question_1_fuctions--------------------------------------------
+def q1_full_stack_java(df):
+    '''creates a full stack java sub dataframe from the original dataframe'''
+    java = df[df.program_id == 'full_stack_java']
+    return java
 
 
+def q1_data_science_program(df):
+    '''creates a Data science sub dataframe from the original dataframe'''
+    data_science = df[df.program_id == 'data_science']
+    return data_science
+
+def q1_full_stack_php(df):
+    '''creates a full stack php sub dataframe from the original dataframe'''
+    php = df[df.program_id == 'full_stack_php']
+    return php
+
+def q1_front_end_programming(df):
+    '''creates a front end programming sub dataframe from the original dataframe'''
+    front_end = df[df.program_id == 'front_end_programming']
+    return front_end
+
+def q1_remove_columns(df):
+    columns = [".md","studentx", "asdf", "home", "index.html", ".ico", "job-board", "selectors", "job-portal",
+           "strings", "extra", "teams/13", "case-statements", "where", ".jpeg", ".png", ".xml", ".jpg",
+           ".json", "https", ".html", "grades", "notes", "prework", "appendix", ".map", "capstones",
+           "capstone", "wp-login", "'", "wp-admin"]
+
+    for c in columns:
+        df = df[df['path'].str.contains(c)==False]
+    return
+
+
+def q1_display_paths_java(df): 
+    java = pd.DataFrame(df.groupby('path').filter(lambda x : len(x)>10000))
+    return pd.DataFrame(java.path.value_counts())
+
+def q1_display_path_ds(df):
+    data = pd.DataFrame(df.groupby('path').filter(lambda x: len(x)>1500))
+    return pd.DataFrame(data.path.value_counts())
+
+def q1_display_path_php(df):
+    stack = pd.DataFrame(df.groupby('path').filter(lambda x: len(x)>250))
+    return pd.DataFrame(stack.path.value_counts())
+
+
+#--------------------------Question_7_fuctions--------------------------------------------
+
+
+def q1_display_least_accessed(df):
+    least = pd.DataFrame(df.groupby('path').filter(lambda x: len(x) > 75 != len(x) < 100))
+    return pd.DataFrame(least.path.value_counts())
+
+def q1_display_absolute_least(df):
+    least = pd.DataFrame(df.groupby('path').filter(lambda x: len(x) > 75 != len(x) < 100))
+    return
+    
 #--------------------------Question_3_fuctions---------------------------------------------------------------
 
 def explore_question3(df):
@@ -209,3 +264,18 @@ def q3_plot_hists(all_users, bottom_5_users, bottom_25_users, middle_users, top_
     plt.show()
 
 #-------------------------------------------------------------------------------------------------------------
+
+#--------------------------Question_7_fuctions--------------------------------------------
+
+
+def q1_display_least_accessed(df):
+    least = pd.DataFrame(df.groupby('path').filter(lambda x: len(x) > 75 != len(x) < 85))
+    return pd.DataFrame(least.path.value_counts())
+
+def q1_display_absolute_least(df):
+    least = pd.DataFrame(df.groupby('path').filter(lambda x: len(x) > 75 != len(x) < 100))
+    return
+
+def q1_get_least_accessed(df):
+    least_df = df[df['path'].str.contains("6-regression/2-acquire-and-prep")==True]
+    return least_df
