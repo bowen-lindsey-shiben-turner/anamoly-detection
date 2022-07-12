@@ -265,7 +265,6 @@ def q3_plot_hists(all_users, bottom_5_users, bottom_25_users, middle_users, top_
 
 #-------------------------------------------------------------------------------------------------------------
 
-<<<<<<< HEAD
 #--------------------------Question_7_fuctions--------------------------------------------
 
 
@@ -280,7 +279,6 @@ def q1_display_absolute_least(df):
 def q1_get_least_accessed(df):
     least_df = df[df['path'].str.contains("6-regression/2-acquire-and-prep")==True]
     return least_df
-=======
 #--------------------------Question_6_functions---------------------------------------------------------------
 
 def get_coursework_topic_and_specific_resource(df):
@@ -330,4 +328,3 @@ def explore_q6_df():
     df['further_info'] = ''
     df = get_coursework_topic_and_specific_resource(df)
     return df
->>>>>>> 4bcf7082456b455249912874b84e639c0aa89ac8
