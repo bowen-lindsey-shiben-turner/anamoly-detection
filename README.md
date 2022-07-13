@@ -28,6 +28,40 @@ I have some questions for you that I need to be answered before the board meetin
 
 ---
 
+## Exploration Summary/Executive Summary:
+
+### Recommendations and Takeaways:
+
+<br> 
+
+#### Question 1: Most accessed lessons:
+- Javascript I
+- Classification
+- HTML-CSS & SQL 
+<br>
+
+#### Question 2: Popular lessons accesseds by cohorts
+- Teddy & Darden cohorts referred significantly more to the “Slides” & “SQL” lessons respectively than the average of their respective program cohorts
+<br>
+
+#### Question 3: Curriculums accessed by active students
+- ~50% of the bottom quarter of of active student accessors ceased to access the curriculum over a month before their graduation date
+<br>
+
+#### Question 6: Topics referenced MOST by graduates
+- Fundamentals (Data Science)
+- JavaScript I (Full-Stack)
+- Content (Full Stack PHP & Front End Programming)
+<br>
+
+#### Question 7: Least accessed lessons: 
+- Regression & Story-Telling 
+
+
+#### _We have no recommendations at this time as this is primarily an analytical observation_
+
+---
+
 ## Project Goals:
 
 - To answer a set of questions and provide additional feedback on findings
@@ -67,40 +101,6 @@ To perform exploratory analysis on the dataset, we primarily utilized many vizua
 <br>  
 
 ---
-
-## Exploration Summary/Executive Summary:
-
-### Recommendations and Takeaways:
-
-<br> 
-
-#### Question 1: Most accessed lessons:
-- Javascript I
-- Classification
-- HTML-CSS & SQL 
-<br>
-
-#### Question 2: Popular lessons accesseds by cohorts
-- Teddy & Darden cohorts referred significantly more to the “Slides” & “SQL” lessons respectively than the average of their respective program cohorts
-<br>
-
-#### Question 3: Curriculums accessed by active students
-- ~50% of the bottom quarter of of active student accessors ceased to access the curriculum over a month before their graduation date
-<br>
-
-#### Question 6: Topics referenced MOST by graduates
-- Fundamentals (Data Science)
-- JavaScript I (Full-Stack)
-- Content (Full Stack PHP & Front End Programming)
-<br>
-
-#### Question 7: Least accessed lessons: 
-- Regression & Story-Telling 
-
-
-#### _We have no recommendations at this time as this is primarily an analytical observation_
-
---
 ### With More Time
 
 - With the data available in this dataset, we cannot draw conclusions on why the bottom accessors cease accessing the curriculum and I'd like to request more data to evaluate the following questions:
@@ -110,7 +110,9 @@ To perform exploratory analysis on the dataset, we primarily utilized many vizua
 - Could ceasing access be due to dropping out of the program? If so, how often does this occur?
 
 - Do the instructors seem to influence the amount of program access?
---
+
+
+---
 
 ## Steps to reproduce
 - Acquire access to the CodeUp MySQL Database
