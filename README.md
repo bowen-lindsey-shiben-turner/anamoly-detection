@@ -28,6 +28,40 @@ I have some questions for you that I need to be answered before the board meetin
 
 ---
 
+## Exploration Summary/Executive Summary:
+
+### Recommendations and Takeaways:
+
+<br> 
+
+#### Question 1: Most accessed lessons:
+- Javascript I
+- Classification
+- HTML-CSS & SQL 
+<br>
+
+#### Question 2: Popular lessons accesseds by cohorts
+- Teddy & Darden cohorts referred significantly more to the “Slides” & “SQL” lessons respectively than the average of their respective program cohorts
+<br>
+
+#### Question 3: Curriculums accessed by active students
+- ~50% of the bottom quarter of of active student accessors ceased to access the curriculum over a month before their graduation date
+<br>
+
+#### Question 6: Topics referenced MOST by graduates
+- Fundamentals (Data Science)
+- JavaScript I (Full-Stack)
+- Content (Full Stack PHP & Front End Programming)
+<br>
+
+#### Question 7: Least accessed lessons: 
+- Regression & Story-Telling 
+
+
+#### _We have no recommendations at this time as this is primarily an analytical observation_
+
+---
+
 ## Project Goals:
 
 - To answer a set of questions and provide additional feedback on findings
@@ -54,23 +88,38 @@ I have some questions for you that I need to be answered before the board meetin
 
 ---
 
-## Project Summary
+## Project Outline
+
+### 1. Acquire, prepare and clean data set.
+
+We acquired the dataset from the `CodeUp database MySQL server` where we pulled all information related to CodeUp cohorts in the `logs` and the `cohorts` tabel. The pulled dataframe was then saved as a `cirriculum_logs.csv` where we performed our analysis on. 
+<br>
+
+### 2. Perform Exploratory Data Analysis on the unencoded data set
+
+To perform exploratory analysis on the dataset, we primarily utilized many vizual tools deriving from seaborn and matplotlib. Then performed mathematical, statistical, and time analysis from various pandas dataframes. 
+<br>  
+
+---
+### With More Time
+
+- With the data available in this dataset, we cannot draw conclusions on why the bottom accessors cease accessing the curriculum and I'd like to request more data to evaluate the following questions:
+
+- Do students stop accessing because they feel they've acquired enough knowledge? (assess a relationship between access and student performance)
+
+- Could ceasing access be due to dropping out of the program? If so, how often does this occur?
+
+- Do the instructors seem to influence the amount of program access?
+
 
 ---
 
-## Exploration Summary
-
---
-
-## Conclusions/Executive Summary
-
-
-### With More Time
-
---
-
 ## Steps to reproduce
-
+- Acquire access to the CodeUp MySQL Database
+- Acquire the dataset from the `CodeUp database MySQL server` 
+- Pull all information related to CodeUp cohorts in the `logs` and the `cohorts` tabel.
+- Utilize many vizual tools deriving from seaborn and matplotlib.
+- Then perform mathematical, statistical, and time analysis from various pandas dataframes. 
 
 
 
